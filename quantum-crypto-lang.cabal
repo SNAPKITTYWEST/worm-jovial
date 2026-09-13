@@ -1,0 +1,112 @@
+-- Copyright (C) 2026 SnapKittyWest. Ahmad Ali Parr, Bel Esprit D'Accord Irrevocable Trust.
+-- SPDX-License-Identifier: AGPL-3.0-or-later
+
+cabal-version:      3.0
+name:               quantum-crypto-lang
+version:            0.1.0.0
+license:            MIT
+author:             SnapKitty Team
+maintainer:         hello@snapkitty.com
+category:           Quantum Computing
+synopsis:           Quantum cryptographic language with verified circuits
+description:
+  A quantum cryptographic DSL with linear types, formal verification,
+  and 743-wire canonical mapping for secure quantum protocols.
+
+common warnings
+  ghc-options:
+    -Wall
+    -Wcompat
+    -Wincomplete-record-updates
+    -Wincomplete-uni-patterns
+    -Wredundant-constraints
+    -fhide-source-paths
+
+library
+  import:           warnings
+  exposed-modules:
+    QCL.Syntax.AST
+    QCL.Syntax.Lexer
+    QCL.Syntax.Parser
+    QCL.IR.Wire
+    QCL.IR.Gate
+    QCL.IR.Operation
+    QCL.IR.Circuit
+    QCL.IR.Register
+    QCL.Type.System
+    QCL.Type.Ownership
+    QCL.Semantic.Analyzer
+    QCL.Semantic.IRGenerator
+    QCL.Optimization.Optimizer
+    QCL.Verification.Equivalence
+    QCL.Verification.Verifier
+    QCL.Backend.Quipper
+    QCL.Backend.Simulator
+    QCL.Backend.OpenQASM
+    QCL.Compiler.Driver
+    QCL.Compiler.Fixture
+    QCL.Crypto.TodoLibrary
+    QCL.Daemon.AsyncExecutor
+
+  build-depends:
+    base >=4.16 && <5,
+    aeson,
+    containers,
+    mtl,
+    transformers,
+    text,
+    bytestring,
+    vector,
+    array,
+    parsec,
+    megaparsec,
+    lens,
+    deepseq,
+    hashable,
+    unordered-containers,
+    time,
+    process
+
+  hs-source-dirs:   src
+  default-language: Haskell2010
+  ghc-options:      -O2
+
+executable qcl-compiler
+  import:           warnings
+  main-is:          QCL/Compiler/Main.hs
+  build-depends:
+    base >=4.16 && <5,
+    quantum-crypto-lang,
+    containers,
+    time,
+    process,
+    mtl
+
+  hs-source-dirs:   src
+  default-language: Haskell2010
+  ghc-options:      -O2 -threaded
+
+test-suite quantum-crypto-lang-test
+  import:           warnings
+  type:             exitcode-stdio-1.0
+  main-is:          Main.hs
+  other-modules:
+    Tests.Wire
+    Tests.Gate
+    Tests.Parser
+    Tests.Fixture
+    Tests.OpenQASM
+    Tests.Quipper
+
+  build-depends:
+    base >=4.16 && <5,
+    quantum-crypto-lang,
+    tasty,
+    tasty-hunit,
+    tasty-quickcheck,
+    containers,
+    time
+
+  hs-source-dirs:   test
+  default-language: Haskell2010
+  ghc-options:      -O2 -threaded

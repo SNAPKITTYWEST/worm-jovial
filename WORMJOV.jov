@@ -1,3 +1,7 @@
+(* Copyright (C) 2026 SnapKittyWest. Ahmad Ali Parr, Bel Esprit D'Accord Irrevocable Trust.
+   SPDX-License-Identifier: AGPL-3.0-or-later
+   GNU Affero General Public License v3.0 or later -- https://www.gnu.org/licenses/agpl-3.0.html *)
+
 (* JOVIAL WORM SECRET - HAND ROLLED DENSE IMPLEMENTATION
    MIN 600 LOC - WRITE ONCE / CONSUME KEY+PLAIN / SEALED CIPHER
    FLOW: SECRET -> WORM ENCRYPT (PLAIN+KEY CONSUMED) -> SEALED CT -> SINGLE DECRYPT
